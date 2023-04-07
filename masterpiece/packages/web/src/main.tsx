@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Article from "./pages/Article";
 import "./globals.css";
 import AboutUs from "./pages/AboutUs";
+import { EthosConnectProvider } from "ethos-connect";
 
 const urql = createClient({
   url: import.meta.env.VITE_GRAPHQL_URL,
@@ -27,13 +28,15 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="article/:id" element={<Article />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </BrowserRouter>
+    <EthosConnectProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="article/:id" element={<Article />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
+    </EthosConnectProvider>
   );
 }

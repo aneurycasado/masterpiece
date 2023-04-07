@@ -2,24 +2,15 @@ import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  ChartPieIcon,
   ChatBubbleLeftIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
   KeyIcon,
   PencilIcon,
   ShoppingCartIcon,
-  SquaresPlusIcon,
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-  PuzzlePieceIcon,
-  RectangleGroupIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon, PuzzlePieceIcon } from "@heroicons/react/20/solid";
+import { SignInButton, ethos } from "ethos-connect";
 
 const products = [
   {
@@ -60,6 +51,12 @@ const callsToAction = [
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
+
+const LoginButton = () => {
+  const { status, wallet } = ethos.useWallet();
+  if (!wallet) return <SignInButton />;
+  return <ethos.components.AddressWidget />;
+};
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -167,9 +164,7 @@ export default function Header() {
           </a>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          <LoginButton />
         </div>
       </nav>
       <Dialog
@@ -249,12 +244,7 @@ export default function Header() {
                 </a>
               </div>
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+                <LoginButton />
               </div>
             </div>
           </div>
